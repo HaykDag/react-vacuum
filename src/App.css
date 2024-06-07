@@ -1,0 +1,45 @@
+.canvas-cnt {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.myButton {
+  border: none;
+  border-radius: 7px;
+  padding: 5px 10px;
+  background-color: rgb(52, 48, 124);
+  color: gold;
+  font-size: 1rem;
+  box-shadow: 10px 10px 10px rgba(128, 128, 128, 0.277);
+  cursor: pointer;
+  user-select: none;
+}
+
+.myButton:hover {
+  background-color: rgb(156, 138, 34);
+  color: rgb(255, 255, 255);
+  transition: 0.3s;
+}
+
+.myInput {
+  border: 1px solid rgb(62, 99, 150);
+  width: 60px;
+  padding: 5px 10px;
+  border-radius: 7px;
+}
+
+.dropdown {
+  border: 1px solid rgb(62, 99, 150);
+  padding: 5px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: 500;
+  background-color: rgb(52, 48, 124);
+  color: gold;
+  user-select: none;
+}
+
+option {
+  text-align: center;
+}

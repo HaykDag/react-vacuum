@@ -1,0 +1,11 @@
+body {
+  text-align: center;
+  margin: 0;
+  background-color: rgb(66, 63, 63);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

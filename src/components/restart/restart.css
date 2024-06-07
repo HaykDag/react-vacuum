@@ -1,0 +1,19 @@
+.finish-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(106, 102, 175, 0.352);
+  box-shadow: 10px 10px 10px rgba(128, 128, 128, 0.277);
+  padding: 30px;
+  border-radius: 15px;
+}
+
+.finish-info-text {
+  font-size: 1.4rem;
+  color: gold;
+  user-select: none;
+}
