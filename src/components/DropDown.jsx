@@ -1,34 +1,43 @@
-import { useRef } from "react";
+import { useState } from "react";
 import { room } from "../hooks/useCanvas";
 
-const DropDown = ({rooms,contolTypes,control,setControl,...rest}) => {
+const DropDown = ({rooms,contolTypes,control,setControl,currRoom,setCurrRoom}) => {
 
-  const ref = useRef();
+  const [showList,setShowList] = useState(false);
 
-  const handleChange = (e)=>{
-    ref.current.blur();
-    if(rooms){
-      room.currRoom = e.target.value;
-      
-      room.changeRoom();
-      room.changeControl(control);
-    }else{
-      setControl(e.target.value);
-      room.changeControl(e.target.value);
-    }
-  } 
+  const onOpenList = ()=>{
+    setShowList(!showList);
+  }
 
   
-  return (
-  <select className="dropdown" {...rest} onChange={handleChange} ref={ref} >
-    {rooms ? rooms.map((r)=>
-      <option key={r} value={r} >{r}</option>
-    ) : 
-    contolTypes.map((type)=>
-      <option key={type} value={type} >{type}</option>
-    )}
-  </select>
+  const onChoose = (item)=>{
+    if(rooms){
+      room.currRoom = item;
+      room.changeRoom();
+      room.changeControl(control);
+      setCurrRoom(item)
+    }else{
+      setControl(item);
+      room.changeControl(item);
+    }
+    setShowList(false);
+  }
+
+  return(
+    <div className="dropDown">
+      <div className="dropHeader" onClick={onOpenList}>{currRoom ? currRoom : control}</div>
+      <div className={`dropList ${showList ? 'active' : ''}`} >
+        {rooms ? rooms.map((r)=>
+          <div className="dropListItem" key={r} onClick={()=>onChoose(r)}>{r}</div>
+        ):
+        contolTypes.map((type)=>
+          <div className="dropListItem" key={type} onClick={()=>onChoose(type)}>{type}</div>
+        )}
+        
+      </div>
+    </div>
   )
+
 }
 
 export default DropDown

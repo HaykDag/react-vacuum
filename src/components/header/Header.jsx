@@ -13,6 +13,7 @@ const Header = ({setTraining,control,setControl}) => {
 
   const [headerStatus,setHeaderStatus] = useState('');//['edit']
   const [roomName,setRoomName] = useState('');
+  const [currRoom,setCurrRoom] = useState('room1')
   const [info,setInfo] = useState('Press "Space_bar" to turn on the vacuum.')
   const [rooms,setRooms] = useState(['room1','room2','room3'])
   
@@ -73,8 +74,8 @@ const Header = ({setTraining,control,setControl}) => {
       <div className="btns">
         <Button name='New Room' onClick={newRoom} />
         {headerStatus==='edit' && <Input placeholder='Name' value={roomName} setRoomName={setRoomName} />}
-        {headerStatus!=='edit' && <DropDown rooms={rooms} control={control} />}
-        {headerStatus!=='edit' && <DropDown contolTypes={controlTypes} setControl={setControl} value={control} />}
+        {headerStatus!=='edit' && <DropDown rooms={rooms} control={control} currRoom={currRoom} setCurrRoom={setCurrRoom} />}
+        {headerStatus!=='edit' && <DropDown contolTypes={controlTypes} setControl={setControl} control={control} />}
         {(control==='AI' || headerStatus==='edit') && <Button name='Save' onClick={save} />}
         {headerStatus==='edit' && <Button name='cancel' onClick={cancel} />}
         {control==='AI' && <Button name='Train AI' onClick={()=>setTraining(true)} />}
