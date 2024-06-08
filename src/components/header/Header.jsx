@@ -1,6 +1,6 @@
 import Button from "../Button";
 import Input from "../Input";
-import DropDown from "../DropDown";
+import DropDown from "../dropDown/DropDown.jsx";
 import './header.css'
 import { useEffect, useState } from "react";
 import {room,size} from '../../hooks/useCanvas.jsx';
@@ -22,6 +22,8 @@ const Header = ({setTraining,control,setControl}) => {
     setHeaderStatus('edit');
     room.vacuum = new Vacuum(size.width-50,size.height-50,40,"KEYS");
     room.walls.length = 4;
+    room.edit = true;
+    room.garbage.length = 0;
     setControl('KEYS');
   }
 
@@ -54,10 +56,14 @@ const Header = ({setTraining,control,setControl}) => {
       
       ///save the room
       room.saveRoom(roomName);
-      if(rooms.indexOf(roomName)!== -1){
+      room.generateGarbage(150);
+      room.edit = false;
+      if(rooms.indexOf(roomName)=== -1){
         setRooms((curRooms)=>[...curRooms,roomName]);
       }
+      setCurrRoom(roomName);
       setHeaderStatus('');
+      setRoomName('');
     }else{
       //saving the brain
       room.saveBrain();
@@ -74,7 +80,14 @@ const Header = ({setTraining,control,setControl}) => {
       <div className="btns">
         <Button name='New Room' onClick={newRoom} />
         {headerStatus==='edit' && <Input placeholder='Name' value={roomName} setRoomName={setRoomName} />}
-        {headerStatus!=='edit' && <DropDown rooms={rooms} control={control} currRoom={currRoom} setCurrRoom={setCurrRoom} />}
+        {headerStatus!=='edit' && 
+          <DropDown 
+            rooms={rooms} 
+            control={control} 
+            currRoom={currRoom} 
+            setCurrRoom={setCurrRoom} 
+            setRooms={setRooms}
+          />}
         {headerStatus!=='edit' && <DropDown contolTypes={controlTypes} setControl={setControl} control={control} />}
         {(control==='AI' || headerStatus==='edit') && <Button name='Save' onClick={save} />}
         {headerStatus==='edit' && <Button name='cancel' onClick={cancel} />}

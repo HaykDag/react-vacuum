@@ -22,7 +22,7 @@ const useCanvas = (setIsClean) => {
       room.update();
       room.draw(ctx);
 
-      if(room.garbage.length === 0) setIsClean(true);
+      if(room.garbage.length === 0 && !room.edit) setIsClean(true);
       
       animationID = requestAnimationFrame(animate);
     }

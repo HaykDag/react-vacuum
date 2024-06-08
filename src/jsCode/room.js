@@ -27,6 +27,7 @@ export default class Room {
     this.garbage = [];
     this.newWall = null;
     this.tempWall = null;
+    this.edit = false;
     this.changeRoom();
   }
 

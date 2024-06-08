@@ -1,0 +1,68 @@
+.dropDown {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.dropHeader {
+  display: block;
+  border: none;
+  border-radius: 7px;
+  padding: 5px;
+  background-color: rgb(52, 48, 124);
+  color: gold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.dropHeader:hover {
+  background-color: rgba(52, 48, 124, 0.422);
+}
+
+.dropList {
+  position: absolute;
+  top: 100%;
+  background-color: rgb(51, 49, 98);
+  color: gold;
+  border-radius: 7px;
+  display: none;
+}
+
+.active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.dropListItem-cnt {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.dropListItem {
+  padding: 5px;
+  transition: 0.2s;
+  cursor: pointer;
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 7px;
+}
+
+.dropListItem:hover {
+  color: rgb(52, 48, 124);
+  background-color: gold;
+}
+
+.dropListBin {
+  display: inline-block;
+  border-radius: 50%;
+}
+
+.dropListBin:hover {
+  background-color: rgb(171, 62, 62);
+}
