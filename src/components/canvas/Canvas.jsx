@@ -1,8 +1,7 @@
 import useCanvas from "../../hooks/useCanvas.jsx";
 import './canvas.css';
 
-const Canvas = (props) => {
-  const {setIsClean,...rest} = props;
+const Canvas = ({setIsClean,...rest}) => {
   
   const ref = useCanvas(setIsClean);
   

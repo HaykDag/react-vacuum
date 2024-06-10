@@ -1,24 +1,26 @@
 import Input from '../Input';
 import Button from '../Button';
-
+import { AppContext } from '../../context/AppContext';
 import './AITrainInfo.css';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { room } from '../../hooks/useCanvas';
 
 
-const AITrainInfo = ({setTraining}) => {
+const AITrainInfo = () => {
+
+  const {dispatch} = useContext(AppContext);
 
   const [count,setCount] = useState(50);
   const [mutation,setMutation] = useState(0.5);
 
   const handleGenerate = ()=>{
     room.generateVacuums(count,mutation);
-    setTraining(false);
+    dispatch({type:'SWITCH_TRAINING'});
   }
 
   return (
     <div className="train-info">
-      <span className='closeBtn' onClick={()=>setTraining(false)}>X</span>
+      <span className='closeBtn' onClick={()=>dispatch({type:'SWITCH_TRAINING'})}>X</span>
       <div className="details">
         Generate AI vacuum Cleaners at the same time, elminate the ones that are
         performing bad by right clicking on them and leave only one to save as a

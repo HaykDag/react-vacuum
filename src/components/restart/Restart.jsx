@@ -1,13 +1,8 @@
-import { room } from '../../hooks/useCanvas.jsx';
 import Button from '../Button.jsx';
 import './restart.css';
 
-const Restart = ({setIsClean}) => {
 
-  const onRestart = ()=>{
-    setIsClean(false);
-    room.generateGarbage(250);
-  }
+const Restart = ({onRestart}) => {
 
   return (
     <div className="finish-info">

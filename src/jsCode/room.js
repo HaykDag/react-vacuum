@@ -166,7 +166,7 @@ export default class Room {
     }
     this.walls.push(...newWalls);
     this.vacuums.length = 0;
-    this.generateGarbage(150);
+    this.generateGarbage(1);
   }
 
   changeControl(type){
@@ -181,11 +181,26 @@ export default class Room {
     if(brains[this.currRoom]) this.vacuum.brain = brains[this.currRoom];
   }
 
-  saveBrain(){
+  saveBrain(name){
     const data = localStorage.getItem("brains");
     const brains = data ? JSON.parse(data) : {};
-    brains[this.currRoom] = this.vacuum.brain;
+    brains[name] = this.vacuum.brain;
     localStorage.setItem("brains", JSON.stringify(brains));
+  }
+
+  deleteBrain(name){
+    const data = localStorage.getItem("brains");
+    const brains = data ? JSON.parse(data) : {};
+    delete brains[name];
+    localStorage.setItem("brains", JSON.stringify(brains));
+  }
+
+  deleteRoom(name){
+    const data = localStorage.getItem("rooms");
+    const rooms = data ? JSON.parse(data) : {};
+    delete rooms[name];
+    localStorage.setItem("rooms", JSON.stringify(rooms));
+    this.deleteBrain(name);
   }
 
   saveRoom(name){

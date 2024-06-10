@@ -2,29 +2,26 @@ import Button from "../Button";
 import Input from "../Input";
 import DropDown from "../dropDown/DropDown.jsx";
 import './header.css'
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import {room,size} from '../../hooks/useCanvas.jsx';
 import Vacuum from "../../jsCode/vacuum.js";
+import { AppContext } from "../../context/AppContext.jsx";
 
-//const rooms = ['room1','room2','room3'];
-const controlTypes = ['KEYS','AI','ALGO'];
 
-const Header = ({setTraining,control,setControl}) => {
+const Header = () => {
 
-  const [headerStatus,setHeaderStatus] = useState('');//['edit']
-  const [roomName,setRoomName] = useState('');
-  const [currRoom,setCurrRoom] = useState('room1')
+  const {headerStatus,control,rooms,currRoom,dispatch} = useContext(AppContext);
+
   const [info,setInfo] = useState('Press "Space_bar" to turn on the vacuum.')
-  const [rooms,setRooms] = useState(['room1','room2','room3'])
-  
+  const [roomName,setRoomName] = useState('');
 
   const newRoom = ()=>{
-    setHeaderStatus('edit');
+    dispatch({type:'SET_HEADERSTATUS'});
     room.vacuum = new Vacuum(size.width-50,size.height-50,40,"KEYS");
     room.walls.length = 4;
     room.edit = true;
     room.garbage.length = 0;
-    setControl('KEYS');
+    dispatch({type:"SET_CONTROL",payload:"KEYS"});
   }
 
   useEffect(()=>{
@@ -32,15 +29,24 @@ const Header = ({setTraining,control,setControl}) => {
     const data = localStorage.getItem("rooms");
     const roomData = data ? JSON.parse(data) : {};
     const newRooms = Object.keys(roomData);
-    setRooms((currRooms)=>[...currRooms,...newRooms]);
-    document.addEventListener("keydown", (e) => {
-      if (e.code === "Space") {
-        room.vacuum.turned = !room.vacuum.turned;
-        room.vacuum.turned ? setInfo('Great, Now Enjoy Cleaning the Room!') : setInfo('Press "Space_bar" to turn on the vacuum.')
-      }
-    });
+    dispatch({type:'ADD_ROOMS',payload:newRooms});
+    
+    document.addEventListener("keydown", spaceAction);
 
-    return ()=>setRooms(['room1','room2','room3']);
+    function spaceAction(e){
+      if (e.code !== "Space") return;
+
+      room.vacuum.turned = !room.vacuum.turned;
+      room.vacuum.turned ? 
+        setInfo('Great, Now Enjoy Cleaning the Room!') : 
+        setInfo('Press "Space_bar" to turn on the vacuum.')
+      
+    }
+
+    return ()=>{
+      dispatch({type:'RESET_ROOMS'});
+      document.removeEventListener('keydown',spaceAction);
+    }
 
   },[]);
 
@@ -54,24 +60,24 @@ const Header = ({setTraining,control,setControl}) => {
         return;
       }
       
-      ///save the room
+      //save the room
       room.saveRoom(roomName);
       room.generateGarbage(150);
       room.edit = false;
       if(rooms.indexOf(roomName)=== -1){
-        setRooms((curRooms)=>[...curRooms,roomName]);
+        dispatch({type:'ADD_ROOM',payload:roomName});
       }
-      setCurrRoom(roomName);
-      setHeaderStatus('');
+      dispatch({type:'SET_CURRROOM',payload:roomName});
+      dispatch({type:'SET_HEADERSTATUS'});
       setRoomName('');
     }else{
       //saving the brain
-      room.saveBrain();
+      room.saveBrain(currRoom);
     }
   }
 
   const cancel = ()=>{
-    setHeaderStatus('');
+    dispatch({type:'SET_HEADERSTATUS'});
     room.changeRoom();
   }
 
@@ -80,18 +86,11 @@ const Header = ({setTraining,control,setControl}) => {
       <div className="btns">
         <Button name='New Room' onClick={newRoom} />
         {headerStatus==='edit' && <Input placeholder='Name' value={roomName} setRoomName={setRoomName} />}
-        {headerStatus!=='edit' && 
-          <DropDown 
-            rooms={rooms} 
-            control={control} 
-            currRoom={currRoom} 
-            setCurrRoom={setCurrRoom} 
-            setRooms={setRooms}
-          />}
-        {headerStatus!=='edit' && <DropDown contolTypes={controlTypes} setControl={setControl} control={control} />}
+        {headerStatus!=='edit' && <DropDown isRoom={true}/>}
+        {headerStatus!=='edit' && <DropDown />}
         {(control==='AI' || headerStatus==='edit') && <Button name='Save' onClick={save} />}
         {headerStatus==='edit' && <Button name='cancel' onClick={cancel} />}
-        {control==='AI' && <Button name='Train AI' onClick={()=>setTraining(true)} />}
+        {control==='AI' && <Button name='Train AI' onClick={()=>dispatch({type:'SWITCH_TRAINING'})} />}
       </div>
       <div className="info" style={info[0]==='Y' ? {color:'red', fontSize:'20px'} : {color:'white'}}>{info}</div>
     </header>

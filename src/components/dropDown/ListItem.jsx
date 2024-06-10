@@ -1,21 +1,19 @@
 import { room } from "../../hooks/useCanvas";
+import { AppContext } from "../../context/AppContext";
+import { useContext } from "react";
 
+const ListItem = ({val,isRoom,...rest}) => {
 
-const ListItem = ({val,isRoom,setRooms,currRoom,setCurrRoom,...rest}) => {
+  const {dispatch,currRoom} = useContext(AppContext);
 
   const deleteRoom = ()=>{
-    setRooms((rooms)=>rooms.filter((r)=>r!==val));
+    dispatch({type:'DELETE_ROOM',payload:val})
     if(val===currRoom){
-      setCurrRoom('room1');
+      dispatch({type:'SET_CURRROOM',payload:'room1'});
       room.currRoom = 'room1';
       room.changeRoom();
     } 
-    const data = localStorage.getItem('rooms');
-    if(data){
-      const roomData = JSON.parse(data);
-      delete roomData[val];
-      localStorage.setItem('rooms',JSON.stringify(roomData));
-    }
+    room.deleteRoom(val);
   }
 
   return (

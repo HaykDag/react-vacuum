@@ -3,33 +3,31 @@ import BrainCanvas from './components/canvas/brainCanvas.jsx';
 import Header from './components/header/Header.jsx';
 import AITrainInfo from './components/AITrainInfo/AITrainInfo.jsx';
 import Restart from './components/restart/Restart.jsx';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import './App.css';
+import { AppContext } from './context/AppContext.jsx';
+import { room } from './hooks/useCanvas.jsx';
 
 function App() {
 
-  const [training,setTraining] = useState(false);
-  const [isClean,setIsClean] = useState(false);
-  const [control,setControl] = useState('KEYS');
-
+  const { control, training } = useContext(AppContext);
   
+  const [isClean,setIsClean] = useState(false);
+
+  const onRestart = ()=>{
+    room.generateGarbage(250);
+    setIsClean(false);
+  }
+
   return (
     <div>
-      <Header 
-        setTraining={setTraining}
-        setControl={setControl}
-        control={control}    
-      />
+      <Header/>
       <div className='canvas-cnt'>
-        <Canvas 
-          width={1000} 
-          height={600} 
-          setIsClean={setIsClean}
-        />
+        <Canvas width={1000} height={600} setIsClean={setIsClean} />
         {control==='AI' && <BrainCanvas width={400} height={600}/>}
       </div>
-      {training && <AITrainInfo setTraining={setTraining} />}
-      {isClean && <Restart setIsClean={setIsClean} />}
+      {training && <AITrainInfo  />}
+      {isClean && <Restart onRestart={onRestart}/>}
     </div>
   )
 }
