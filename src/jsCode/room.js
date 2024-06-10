@@ -166,7 +166,7 @@ export default class Room {
     }
     this.walls.push(...newWalls);
     this.vacuums.length = 0;
-    this.generateGarbage(1);
+    this.generateGarbage(150);
   }
 
   changeControl(type){
