@@ -10,7 +10,14 @@ const Input = ({setRoomName,setCount,setMutation,setNodeCount,...rest}) => {
     }else if(setMutation){
       setMutation(e.target.value)
     }else if(setNodeCount){
-      if(isNaN(Number(e.nativeEvent.data)) || Number(e.nativeEvent.data)<=0) return;
+      
+      if(e.nativeEvent.inputType =="deleteContentBackward") {
+        setNodeCount((val)=>val.slice(0,-2));
+        return;
+      }
+      if(isNaN(Number(e.nativeEvent.data))|| Number(e.nativeEvent.data)<=0 ) return;
+  
+      
       setNodeCount(e.target.value + ',');
     }
   }
