@@ -1,33 +1,55 @@
-.train-info {
+.AI-control {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: start;
+  gap: 15px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: teal;
-  padding: 5px 20px;
+  padding: 10px 20px;
   border-radius: 15px;
   font-size: 20px;
+  width: 1000px;
+}
+
+.train-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
 }
 
 .closeBtn {
   position: absolute;
-  top: 5px;
-  right: 5px;
-  font-size: larger;
-  color: red;
+  top: 0px;
+  right: 0px;
+  font-size: 1.2rem;
+  color: rgb(9, 9, 9);
+  padding: 0px 3px;
   cursor: pointer;
   user-select: none;
+  background-color: rgb(211, 113, 113);
+  border-radius: 2px;
+  border-top-right-radius: 15px;
+  transition: 0.2 s;
+}
+
+.closeBtn:hover {
+  background-color: rgb(218, 68, 68);
+  color: rgb(51, 49, 49);
 }
 
 .details {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 5px;
   user-select: none;
+  border: 3px solid gold;
+  border-radius: 15px;
+  padding: 15px;
 }
 
 .input-info {
@@ -38,8 +60,25 @@
 
 .info-inputs {
   display: flex;
+  justify-content: center;
   gap: 10px;
   user-select: none;
   margin-top: 30px;
   margin-bottom: 20px;
+}
+
+.warning {
+  background-color: rgb(222, 91, 91);
+  color: rgb(205, 201, 201);
+  border-radius: 15px;
+}
+
+.err {
+  position: absolute;
+  bottom: 30px;
+  color: darkred;
+  font-size: 1.3rem;
+  font-weight: 500;
+  left: 50%;
+  transform: translate(-50%);
 }

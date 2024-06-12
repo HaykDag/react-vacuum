@@ -18,12 +18,12 @@ export default class Vacuum {
     this.sweepCount = 10;
     this.sweepLength = this.rad * 0.7;
     this.distFromCenter = this.rad * 0.8;
-  
     if (controlType === "KEYS") {
       this.#addEventListners();
     }
     this.sensor = new Sensor(this);
-    this.brain = new NeuralNetwork([5, 6, 5, 3]);
+    this.brainSetup = this.#loadBrainSetup() || [5, 4, 3];
+    this.brain = new NeuralNetwork(this.brainSetup);
     this.hit = false;
     this.turned = false;
     this.forward = false;
@@ -242,6 +242,13 @@ export default class Vacuum {
           break;
       }
     });
+  }
+
+  #loadBrainSetup(){
+    const data = localStorage.getItem('brainSetup');
+    if(!data) return;
+    const brainData = JSON.parse(data);
+    return brainData;
   }
 
   #goForward() {

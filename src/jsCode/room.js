@@ -82,8 +82,8 @@ export default class Room {
       }
     });
     target.addEventListener("mousedown", (e) => {
-      if (e.button !== 0) return;
-      
+      if (e.button !== 0 || !this.edit) return;
+
       if (!this.newWall) {
         this.newWall = { x: mouse.x, y: mouse.y };
       } else {
@@ -96,16 +96,20 @@ export default class Room {
     });
     target.addEventListener("contextmenu", (e) => {
       e.preventDefault();
-      this.newWall = null;  
-      this.tempWall = null;
       const point = [mouse.x, mouse.y];
-      for (let i = 3; i < this.walls.length; i++) {
-        const seg = this.walls[i];
-        const dist = distFromPointToSeg(point, seg);
-        if (dist <= 2) {
-          this.walls.splice(i, 1);
+      if(this.edit){
+        this.newWall = null;  
+        this.tempWall = null;
+        
+        for (let i = 3; i < this.walls.length; i++) {
+          const seg = this.walls[i];
+          const dist = distFromPointToSeg(point, seg);
+          if (dist <= 2) {
+            this.walls.splice(i, 1);
+          }
         }
-      }
+      } 
+      
       if(this.vacuums.length===0) return;
       if(distance([this.vacuum.x,this.vacuum.y],point)<this.vacuum.rad){
         this.vacuum = this.vacuums.pop();
@@ -123,7 +127,7 @@ export default class Room {
   generateVacuums(count,mutation) {
     this.vacuums.length = [];
     for (let i = 0; i < count; i++) {
-      const cleaner = new Vacuum(750, 550, 40, "AI");
+      const cleaner = new Vacuum(this.size.width-50,this.size.height-50, 40, "AI");
       cleaner.brain = JSON.parse(JSON.stringify(this.vacuum.brain));
       NeuralNetwork.mutate(cleaner.brain,mutation);
       this.vacuums.push(cleaner);

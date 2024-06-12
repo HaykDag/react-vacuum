@@ -6,7 +6,6 @@ export const AppContext = createContext();
 export const appReducer = (state,action)=>{
     switch(action.type){
         case "SWITCH_TRAINING":
-            console.log(state.training)
             return {
                ...state,
                training: !(state.training) 
