@@ -45,7 +45,7 @@ const DropDown = ({isRoom}) => {
 
   return(
     <div className="dropDown">
-      <div className="dropHeader" onClick={onOpenList}>{isRoom ? currRoom : control}</div>
+      <div className="dropHeader" onClick={onOpenList}>{isRoom ? currRoom : control} &#8595;</div>
       <div className={`dropList ${showList ? 'active' : ''}`} >
         {isRoom ? rooms?.map((r,i)=>
           <ListItem  
