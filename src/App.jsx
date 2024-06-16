@@ -24,7 +24,7 @@ function App() {
       <Header/>
       <div className='canvas-cnt'>
         <Canvas width={room.size.width} height={room.size.height} setIsClean={setIsClean} />
-        {control==='AI' && <BrainCanvas width={400} height={600}/>}
+        {control==='AI' && <BrainCanvas width={room.size.width*0.5} height={room.size.height+50}/>}
       </div>
       {training && <AITrainInfo  />}
       {isClean && <Restart onRestart={onRestart}/>}

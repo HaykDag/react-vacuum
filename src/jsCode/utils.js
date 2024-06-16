@@ -55,6 +55,13 @@ export function subtract(v1, v2) {
   return newV;
 }
 
+export function average(p1,p2){
+  return {
+    x:(p1.x + p2.x)/2,
+    y:(p1.y + p2.y)/2
+  }
+}
+
 export function magnitute(v) {
   //return distance(v,new Array(v.length).fill(0));
   let mag = 0;
