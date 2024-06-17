@@ -13,7 +13,7 @@ const useBrainCanvas = () => {
 
     const visualizer = new Visualizer(ctx,room.vacuum.brain);
     
-    const animate = ()=>{
+    const animate = (time)=>{
       ctx.clearRect(0,0,canvas.width,canvas.height);
       
       Visualizer.drawNetwork(ctx, room.vacuum.brain);
