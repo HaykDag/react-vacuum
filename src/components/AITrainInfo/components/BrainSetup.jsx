@@ -41,7 +41,7 @@ const BrainSetup = ({setErr}) => {
   }
 
   return (
-    <div className='brain-setup-cnt'>
+    <form className='brain-setup-cnt' onSubmit={handleConfigureBrain}>
       <div className="details">
         Configure the hidden layers of the brain!
         <span>
@@ -55,7 +55,7 @@ const BrainSetup = ({setErr}) => {
         <Input placeholder='nodes' type='text' style={{width:'150px', fontSize:'1.2rem'}} setNodeCount={setNodeCount} value={nodeCount} />
       </div>
       <Button name='Save' onClick={handleConfigureBrain} />
-    </div>
+    </form>
   )
 }
 

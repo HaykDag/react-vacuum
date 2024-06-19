@@ -23,7 +23,7 @@ const Input = ({setRoomName,setCount,setMutation,setNodeCount,...rest}) => {
   }
 
   return (
-    <input className="myInput" {...rest} onChange={handleChange} />
+    <input className="myInput" {...rest} onChange={handleChange}  />
   )
 }
 

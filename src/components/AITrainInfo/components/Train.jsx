@@ -46,7 +46,7 @@ const Train = ({setErr}) => {
   }
 
   return (
-    <div className="train-info">
+    <form className="train-info" onSubmit={handleGenerate}>
       <div className="details">
         Generate AI vacuum Cleaners at the same time, elminate the ones that are
         performing bad by right clicking on them and leave only one to save as a
@@ -64,11 +64,11 @@ const Train = ({setErr}) => {
         </span>
       </div>
       <div className='info-inputs'>
-        <Input placeholder='Count' type='number' setCount={setCount} value={count}  />
+        <Input placeholder='Count' type='number' setCount={setCount} value={count} autoFocus={true} />
         <Input placeholder='Mutation' type='number' setMutation={setMutation} value={mutation} />
       </div>
-      <Button name='Generate' onClick={handleGenerate} />
-    </div>
+      <Button name='Generate'  />
+    </form>
   )
 }
 

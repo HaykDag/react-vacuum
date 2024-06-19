@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import Room from '../jsCode/room.js';
 
 
-export const size = {width:window.innerWidth*0.7,height:window.innerHeight*0.8};
+export const size = {width:window.innerWidth*0.65,height:window.innerHeight*0.8};
 export const room = new Room(size);
 
 const useCanvas = (setIsClean) => {

@@ -4,8 +4,8 @@ import { room } from "../hooks/useCanvas";
 export default class Visualizer {
   constructor(ctx,network,margin=50){
     this.network = network;
-    this.weights = [];//[{start,end,value}]
-    this.biases = [];//[{x,y,value}]
+    this.weights = [];
+    this.biases = [];
     this.inputs = [];
     this.margin = margin;
     this.left = margin;
@@ -21,7 +21,7 @@ export default class Visualizer {
     for(let i = 0;i<room.vacuum.brain.levels[0].inputs.length;i++){
       const x = Visualizer.#getNodeX(room.vacuum.brain.levels[0].inputs,i,this.left,this.left+this.width);
       const y = this.height+this.margin+30;
-      const value = room.vacuum.brain.levels[0].inputs[i].toFixed(2);
+      const value = room.vacuum.brain.levels[0].inputs[i]?.toFixed(2);
 
       const diff = Math.abs(this.inputs[i]?.value-value);
       if(!diff || diff>0.03){

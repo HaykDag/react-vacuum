@@ -49,8 +49,8 @@ export default class Sensor {
     for (let i = 0; i < this.rayCount; i++) {
       const rayAngle =
         lerp(
-          this.raySpread / 2,
           -this.raySpread / 2,
+          this.raySpread / 2,
           this.rayCount == 1 ? 0.5 : i / (this.rayCount - 1)
         ) + this.vacuum.dir;
 
