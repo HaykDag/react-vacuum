@@ -13,7 +13,7 @@ export default class Vacuum {
     this.lSweeper = [];
     this.sweepHands = [];
     this.sweeperAcc = 2;
-    this.speed = 2;
+    this.speed = 1;
     this.sweeperSpeed = 0.1;
     this.sweepCount = 10;
     this.sweepLength = this.rad * 0.7;
