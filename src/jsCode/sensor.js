@@ -38,8 +38,8 @@ export default class Sensor {
       ctx.beginPath();
       ctx.moveTo(this.rays[i][0].x, this.rays[i][0].y);
       ctx.lineTo(...end);
-      ctx.lineWidth = 2;
-      ctx.strokeStyle = "red";
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = currRay.length ? "rgba(255,50,0,0.5)" : "rgba(0,255,100,0.5)";
       ctx.stroke();
     }
   }

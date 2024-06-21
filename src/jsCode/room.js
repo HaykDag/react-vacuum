@@ -126,8 +126,16 @@ export default class Room {
 
   generateVacuums(count,mutation) {
     this.vacuums.length = [];
+    const data = localStorage.getItem('brains');
+    if(data){
+        const brainData = JSON.parse(data);
+        if(brainData[this.currRoom]){
+          this.vacuum.brain = brainData[this.currRoom]
+        }
+      }
     for (let i = 0; i < count; i++) {
       const cleaner = new Vacuum(this.size.width-50,this.size.height-50, 40, "AI");
+      
       cleaner.brain = JSON.parse(JSON.stringify(this.vacuum.brain));
       NeuralNetwork.mutate(cleaner.brain,mutation);
       this.vacuums.push(cleaner);

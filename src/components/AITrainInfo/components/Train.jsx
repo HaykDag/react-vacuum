@@ -6,11 +6,12 @@ import { room } from "../../../hooks/useCanvas";
 
 const Train = ({setErr}) => {
   const [count,setCount] = useState(50);
-  const [mutation,setMutation] = useState(0.5);
+  const [mutation,setMutation] = useState(1);
 
   const {dispatch} = useContext(AppContext);
 
-  const handleGenerate = ()=>{
+  const handleGenerate = (e)=>{
+    e.preventDefault();
     setErr('');
     //validate the inputs
     if(count<=0){
@@ -34,7 +35,7 @@ const Train = ({setErr}) => {
       },1500)
       return;
     }
-    if(mutation<0 || mutation > 1){
+    if(Number(mutation)<0 || Number(mutation) > 1){
       setErr('The mutation should be between 0 and 1');
       setTimeout(()=>{
         setErr('');
@@ -46,13 +47,13 @@ const Train = ({setErr}) => {
   }
 
   return (
-    <form className="train-info" onSubmit={handleGenerate}>
+    <form className="train-info" method="post" onSubmit={(e)=>handleGenerate(e)}>
       <div className="details">
         Generate AI vacuum Cleaners at the same time, elminate the ones that are
         performing bad by right clicking on them and leave only one to save as a
         best brain.
         <span>
-          Enter the Number of vacuum cleaners up to 500 (considering power of
+          Enter the Number of vacuum cleaners up to 1000 (considering power of
           your computer).
         </span>
         <span className='input-info'>
@@ -65,9 +66,9 @@ const Train = ({setErr}) => {
       </div>
       <div className='info-inputs'>
         <Input placeholder='Count' type='number' setCount={setCount} value={count} autoFocus={true} />
-        <Input placeholder='Mutation' type='number' setMutation={setMutation} value={mutation} />
+        <Input placeholder='Mutation' type='text' setMutation={setMutation} value={mutation} />
       </div>
-      <Button name='Generate'  />
+      <Button name='Generate' type='submit'  />
     </form>
   )
 }

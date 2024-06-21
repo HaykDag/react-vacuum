@@ -13,7 +13,7 @@ export default class Vacuum {
     this.lSweeper = [];
     this.sweepHands = [];
     this.sweeperAcc = 2;
-    this.speed = 1;
+    this.speed = 2;
     this.sweeperSpeed = 0.1;
     this.sweepCount = 10;
     this.sweepLength = this.rad * 0.7;
@@ -100,11 +100,11 @@ export default class Vacuum {
   draw(ctx, drawSensor = false) {
     this.#drawPath(ctx);
     this.#drawSweepers(ctx);
-    this.#drawVacuum(ctx);
     //this.sensor.draw(ctx);
     if (drawSensor && this.controlType === "AI") {
       this.sensor.draw(ctx);
     }
+    this.#drawVacuum(ctx);
   }
 
   #drawVacuum(ctx) {
@@ -261,12 +261,12 @@ export default class Vacuum {
   }
 
   #turnLeft() {
-    this.dir = (this.dir - 0.02) % (Math.PI * 2);
+    this.dir = (this.dir - this.speed/100) % (Math.PI * 2);
     this.sweepersSpeed = (this.sweepersSpeed + 1) % 360;
   }
 
   #turnRight() {
-    this.dir = (this.dir + 0.02) % (Math.PI * 2);
+    this.dir = (this.dir + this.speed/100) % (Math.PI * 2);
     this.sweepersSpeed = (this.sweepersSpeed + 1) % 360;
   }
 
@@ -292,8 +292,8 @@ export default class Vacuum {
   }
 
   #activateAlgo(offsets) {
-    const rightOffset = offsets[0];
-    const leftOffset = offsets[4];
+    const rightOffset = offsets[4];
+    const leftOffset = offsets[0];
     if (this.hit) {
       this.forward = false;
     } else if (this.turnDur <= 0) {
