@@ -14,6 +14,7 @@ const Header = () => {
 
   const [info,setInfo] = useState('Press "Space_bar" to turn on the vacuum.')
   const [roomName,setRoomName] = useState('');
+  const [speed,setSpeed] = useState(2);
 
   const newRoom = ()=>{
     dispatch({type:'SET_HEADERSTATUS'});
@@ -33,9 +34,10 @@ const Header = () => {
     
     document.addEventListener("keydown", spaceAction);
 
+    room.vacuum.speed = speed;
+
     function spaceAction(e){
       if (e.code !== "Space") return;
-
       room.vacuum.turned = !room.vacuum.turned;
       room.vacuum.turned ? 
         setInfo('Great, Now Enjoy Cleaning the Room!') : 
@@ -49,6 +51,12 @@ const Header = () => {
     }
 
   },[]);
+
+  const changeSpeed = (e)=>{
+    setSpeed(e.target.value);
+    e.target.blur()
+    room.vacuum.speed = Number(e.target.value);
+  }
 
   const save = ()=>{
     if(headerStatus==='edit'){
@@ -91,6 +99,12 @@ const Header = () => {
         {(control==='AI' || headerStatus==='edit') && <Button name='Save' onClick={save} />}
         {headerStatus==='edit' && <Button name='cancel' onClick={cancel} />}
         {control==='AI' && <Button name='Train AI' onClick={()=>dispatch({type:'SWITCH_TRAINING'})} />}
+        {headerStatus!=='edit' && (
+          <div className="speed-cnt">
+            <label>speed</label>
+            <input className="speedRange" type="range" max={5} min={1} value={speed} onChange={changeSpeed} step={0.5} />
+          </div>
+        )}
       </div>
       <div className="info" style={info[0]==='Y' ? {color:'red', fontSize:'20px'} : {color:'white'}}>{info}</div>
     </header>

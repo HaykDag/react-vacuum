@@ -28,3 +28,17 @@ header {
 .right-info {
   flex: 1;
 }
+
+.speed-cnt {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: gold;
+}
+
+.speedRange {
+  user-select: none;
+  border: none;
+  width: 80px;
+}
